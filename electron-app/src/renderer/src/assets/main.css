@@ -1,0 +1,14 @@
+@import './base.css';
+
+/* 可拖拽区域 */
+.drag-region{
+  -webkit-app-region: drag; /* 更标准的写法，兼容性更好 */
+}
+.no-drag{
+  -webkit-app-region: no-drag;
+}
+
+/* 在这里添加 Tailwind 指令
+@tailwind base;
+@tailwind components;
+@tailwind utilities; */
