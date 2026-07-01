@@ -26,6 +26,17 @@ app.whenReady().then(() => {
 
   // IPC test
   ipcMain.on('ping', () => console.log('pong'))
+
+  // 窗口控制
+  ipcMain.on('window-minimize', () => mainWindow?.minimize())
+  ipcMain.on('window-maximize', () => {
+    if (mainWindow?.isMaximized()) {
+      mainWindow.unmaximize()
+    } else {
+      mainWindow?.maximize()
+    }
+  })
+  ipcMain.on('window-close', () => mainWindow?.close())
   //创建主窗口
   mainWindow = setupMainWindow()
   //设置主题

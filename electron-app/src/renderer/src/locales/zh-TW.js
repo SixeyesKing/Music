@@ -9,7 +9,7 @@ export default {
         notepad: '記事本',
         podcast: '播客',
         musicRoaming: '漫遊',
-        feed: '動態',
+        picks: '精選',
         webPage: '嵌入網頁',
         richEditor: '富文本',
         systemInfo: '系統資訊',

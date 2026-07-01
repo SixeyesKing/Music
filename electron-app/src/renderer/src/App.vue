@@ -13,7 +13,8 @@
     <!-- 底部播放条 -->
     <div :style="{
       height: `${bottomMusicPlayerHeight}`,
-    }" class="bg-surface dark:bg-dark-surface">底部播放条
+    }" class="bg-surface dark:bg-dark-surface">
+      <BottomMusciPlary />
     </div>
 
   </div>
@@ -28,8 +29,7 @@ import { ref } from 'vue';// 引入ref: 用于创建响应式数据
 
 import LeftPanel from './components/LeftPanel.vue';
 import RightPanel from './components/RightPanel.vue';
+import BottomMusciPlary from './components/BottomMusciPlary.vue';
 
-const ipcHandle = () => window.electron.ipcRenderer.send('ping')
-
-const bottomMusicPlayerHeight = ref('6rem')
+const bottomMusicPlayerHeight = ref('4.5rem')
 </script>

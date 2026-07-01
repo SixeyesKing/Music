@@ -13,9 +13,9 @@ export function useMainMenu(){
             route: '/'
         },
         {
-            name: 'main.feed',//'main.blog'
+            name: 'main.picks',//'main.blog'
             icon: 'mingcute:music-3-fill',
-            route: '/feed'
+            route: '/picks'
         },
         {
             name: 'main.chat',

@@ -1,6 +1,6 @@
 <!-- TopBar.vue -->
 <template>
-    <div class="flex justify-between items-center drag-region py-7 px-10">
+    <div class="flex justify-between items-center drag-region py-4 px-10">
         <div class="flex items-center gap-3 no-drag">
             <div class="top_btn_l">
                 <Icon icon="mingcute:left-line" class="text-xl"></Icon>
@@ -32,11 +32,14 @@
             <Icon icon="lets-icons:setting-alt-line" @click="openSettingView"
                 class="text-xl text-on-secondary cursor-pointer no-drag hover:text-black dark:text-dark-on-surface dark:hover:text-[#ffffff]"></Icon>
             <Icon icon="fluent:minimize-16-filled"
-                class="text-xl text-on-secondary cursor-pointer no-drag hover:text-black dark:text-dark-on-surface dark:hover:text-[#ffffff]"></Icon>
+                class="text-xl text-on-secondary cursor-pointer no-drag hover:text-black dark:text-dark-on-surface dark:hover:text-[#ffffff]"
+                @click="minimizeWindow"></Icon>
             <Icon icon="fluent:maximize-20-regular"
-                class="text-xl text-on-secondary cursor-pointer no-drag hover:text-black dark:text-dark-on-surface dark:hover:text-[#ffffff]"></Icon>
+                class="text-xl text-on-secondary cursor-pointer no-drag hover:text-black dark:text-dark-on-surface dark:hover:text-[#ffffff]"
+                @click="maximizeWindow"></Icon>
             <Icon icon="material-symbols:close-rounded"
-                class="text-xl text-on-secondary cursor-pointer no-drag hover:text-black dark:text-dark-on-surface dark:hover:text-[#ffffff]"></Icon>
+                class="text-xl text-on-secondary cursor-pointer no-drag hover:text-[#fc3641] dark:text-dark-on-surface"
+                @click="closeWindow"></Icon>
         </div>
     </div>
 </template>
@@ -44,6 +47,16 @@
 import Vip from './tips/Vip.vue'
 import { useTopBar } from '../composables/useTopBar'
 const { msg_size, openSettingView } = useTopBar()
+
+function minimizeWindow() {
+  window.electron?.ipcRenderer?.send('window-minimize')
+}
+function maximizeWindow() {
+  window.electron?.ipcRenderer?.send('window-maximize')
+}
+function closeWindow() {
+  window.electron?.ipcRenderer?.send('window-close')
+}
 </script>
 <style scoped>
 .top_btn_l {

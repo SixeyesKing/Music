@@ -4,7 +4,13 @@ const sheetController = require('../controllers/SheetController');
 
 router.get('/', sheetController.getAllSheets.bind(sheetController));
 
+router.get('/collected', sheetController.getCollectedSheets.bind(sheetController));
+
 router.get('/user/:userId', sheetController.getSheetsByUserId.bind(sheetController));
+
+router.delete('/collected/:id', sheetController.removeCollectedSheet.bind(sheetController));
+
+router.get('/:id/isCollected', sheetController.isCollected.bind(sheetController));
 
 router.get('/:id', sheetController.getSheetById.bind(sheetController));
 

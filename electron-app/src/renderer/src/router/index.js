@@ -9,9 +9,9 @@ const routes = [
         component: () => import('../views/RecommandView.vue') 
     },
     { 
-        path: '/feed', 
-        name:'feed', 
-        component: () => import('../views/FeedView.vue') 
+        path: '/picks',
+        name:'picks',
+        component: () => import('../views/PicksView.vue')
     },
     { 
         path: '/chat', 

@@ -7,6 +7,7 @@ class Music {
     this.duration = data.duration || 0;
     this.url = data.url || '';
     this.cover_url = data.cover_url || '';
+    this.netease_id = data.netease_id || null;
     this.lyrics = data.lyrics || '';
     this.category = data.category || '';
     this.tags = data.tags || '';

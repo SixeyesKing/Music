@@ -9,7 +9,7 @@ export default {
         notepad: '记事本',
         podcast: '播客',
         musicRoaming: '漫游',
-        feed: '动态',
+        picks: '精选',
         webPage: '嵌入网页',
         richEditor: '富文本',
         systemInfo: '系统信息',

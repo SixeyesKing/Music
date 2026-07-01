@@ -1,3 +1,4 @@
+const db = require('../database/connection');
 const sheetService = require('../services/SheetService');
 const ResponseHelper = require('../utils/response');
 const Validator = require('../utils/validator');
@@ -192,16 +193,64 @@ class SheetController {
     try {
       const { id } = req.params;
       const sheet = await sheetService.collectSheet(id);
-
+      // 写入收藏关联表
+      try {
+        await db.query(
+          'INSERT IGNORE INTO t_user_collected_sheet (user_id, sheet_id) VALUES (?, ?)',
+          ['1', id]
+        );
+      } catch { /* ignore dup */ }
       res.json(ResponseHelper.success(sheet, '收藏成功'));
     } catch (error) {
       logger.error('SheetController.collectSheet error', { id: req.params.id, error: error.message });
-
       if (error.message === '歌单不存在') {
         return res.status(404).json(ResponseHelper.notFound('歌单不存在'));
       }
-
       res.status(500).json(ResponseHelper.error('操作失败', 500));
+    }
+  }
+
+  async getCollectedSheets(req, res) {
+    try {
+      const rows = await db.query(
+        'SELECT s.* FROM t_sheet_list s ' +
+        'JOIN t_user_collected_sheet c ON s.id = c.sheet_id ' +
+        "WHERE c.user_id = '1' " +
+        'ORDER BY c.created DESC'
+      );
+      const Sheet = require('../models/Sheet');
+      res.json(ResponseHelper.success(rows.map(r => Sheet.fromDatabase(r)), '查询成功'));
+    } catch (error) {
+      logger.error('getCollectedSheets error', { error: error.message });
+      res.status(500).json(ResponseHelper.error('查询失败'));
+    }
+  }
+
+  async isCollected(req, res) {
+    try {
+      const { id } = req.params;
+      const rows = await db.query(
+        'SELECT 1 FROM t_user_collected_sheet WHERE user_id = ? AND sheet_id = ?',
+        ['1', id]
+      );
+      res.json(ResponseHelper.success({ collected: rows.length > 0 }, '查询成功'));
+    } catch (error) {
+      logger.error('isCollected error', { error: error.message });
+      res.status(500).json(ResponseHelper.error('查询失败'));
+    }
+  }
+
+  async removeCollectedSheet(req, res) {
+    try {
+      const { id } = req.params;
+      await db.query(
+        'DELETE FROM t_user_collected_sheet WHERE user_id = ? AND sheet_id = ?',
+        ['1', id]
+      );
+      res.json(ResponseHelper.success(null, '取消收藏'));
+    } catch (error) {
+      logger.error('removeCollectedSheet error', { error: error.message });
+      res.status(500).json(ResponseHelper.error('操作失败'));
     }
   }
 }

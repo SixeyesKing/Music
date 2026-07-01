@@ -50,3 +50,7 @@ export const get = (url, params = {}) => {
 export const post = (url, data = {}) => {
     return service.post(url, data)
 }
+
+export const del = (url) => {
+    return service.delete(url)
+}

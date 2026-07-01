@@ -9,7 +9,7 @@ export default {
         notepad: 'メモ帳',
         podcast: 'ポッドキャスト',
         musicRoaming: '音楽ローミング',
-        feed: 'タイムライン',
+        picks: 'おすすめ',
         webPage: 'ウェブ埋め込み',
         richEditor: 'リッチエディタ',
         systemInfo: 'システム情報',

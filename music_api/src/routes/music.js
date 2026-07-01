@@ -8,6 +8,8 @@ router.get('/popular', musicController.getPopularMusic.bind(musicController));
 
 router.get('/recent', musicController.getRecentlyAddedMusic.bind(musicController));
 
+router.get('/:id/url', musicController.getStreamUrl.bind(musicController));
+
 router.get('/:id', musicController.getMusicById.bind(musicController));
 
 router.post('/', musicController.createMusic.bind(musicController));

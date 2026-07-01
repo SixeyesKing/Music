@@ -1,11 +1,9 @@
 <template>
-    <div class=" flex flex-col h-full bg-background dark:bg-dark-background" :style="{ width: `calc(100vw - 220px)` }">
-        <!-- 头部组件 -->
-         <TopBar></TopBar>
-        <!-- 内容区域 -->
-         <div class="content-wrapper">
+    <div class="right-panel">
+        <TopBar></TopBar>
+        <div class="right-content flex-1 overflow-hidden">
             <RouterView></RouterView>
-         </div>
+        </div>
     </div>
 </template>
 
@@ -14,7 +12,16 @@ import TopBar from './TopBar.vue';
 </script>
 
 <style scoped>
-.content-wrapper {
-    margin-left: 40px;
+.right-panel {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    background: #fff;
+    flex: 1;
+    min-width: 0;
 }
+.dark .right-panel {
+    background: #191919;
+}
+
 </style>

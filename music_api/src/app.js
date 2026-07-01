@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 const cors = require('cors');
 const config = require('./config');
 const db = require('./database/connection');
@@ -6,6 +7,10 @@ const logger = require('./utils/logger');
 const ResponseHelper = require('./utils/response');
 const musicRoutes = require('./routes/music');
 const sheetRoutes = require('./routes/sheet');
+const recommendRoutes = require('./routes/recommend');
+const favoriteRoutes = require('./routes/favorite');
+const chartRoutes = require('./routes/chart');
+const picksRoutes = require('./routes/picks');
 const apiDocRoutes = require('./routes/api-doc');
 const { errorHandler, notFoundHandler } = require('./middleware/errorHandler');
 const requestLogger = require('./middleware/requestLogger');
@@ -22,6 +27,7 @@ class App {
     this.app.use(cors());
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use('/audio', express.static(path.join(__dirname, '..', 'public', 'audio')));
     this.app.use(requestLogger);
   }
 
@@ -53,6 +59,10 @@ class App {
     this.app.use('/api/docs', apiDocRoutes);
     this.app.use('/api/music', musicRoutes);
     this.app.use('/api/sheet', sheetRoutes);
+    this.app.use('/api/recommend', recommendRoutes);
+    this.app.use('/api/favorites', favoriteRoutes);
+    this.app.use('/api/charts', chartRoutes);
+    this.app.use('/api/picks', picksRoutes);
   }
 
   setupErrorHandlers() {

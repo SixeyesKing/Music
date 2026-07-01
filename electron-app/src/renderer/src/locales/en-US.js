@@ -9,7 +9,7 @@ export default {
         notepad: 'Notepad', 
         podcast: 'Podcast', 
         musicRoaming: 'Roaming', 
-        feed: 'Feed', 
+        picks: 'Picks', 
         webPage: 'Web Page', 
         richEditor: 'Rich Editor',
         systemInfo: 'System Info',

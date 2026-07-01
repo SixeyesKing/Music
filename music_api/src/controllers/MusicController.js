@@ -1,4 +1,5 @@
 const musicService = require('../services/MusicService');
+const neteaseService = require('../services/NeteaseService');
 const ResponseHelper = require('../utils/response');
 const Validator = require('../utils/validator');
 const logger = require('../utils/logger');
@@ -148,6 +149,30 @@ class MusicController {
     } catch (error) {
       logger.error('MusicController.getRecentlyAddedMusic error', { error: error.message });
       res.status(500).json(ResponseHelper.error('查询失败', error.message));
+    }
+  }
+
+  async getStreamUrl(req, res) {
+    try {
+      const { id } = req.params
+      const music = await musicService.getMusicById(id)
+      if (!music) {
+        return res.status(404).json(ResponseHelper.notFound('音乐不存在'))
+      }
+
+      let url = null
+      if (music.netease_id) {
+        url = await neteaseService.getSongUrl(music.netease_id)
+      }
+
+      if (!url) {
+        url = music.url
+      }
+
+      res.json(ResponseHelper.success({ url }, '获取成功'))
+    } catch (error) {
+      logger.error('MusicController.getStreamUrl error', { id: req.params.id, error: error.message })
+      res.status(500).json(ResponseHelper.error('获取失败', error.message))
     }
   }
 }
